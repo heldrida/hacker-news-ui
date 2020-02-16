@@ -9,6 +9,17 @@ import {
 } from './styled'
 import { IPropsScrollableList } from '../../Types'
 
+const mockData = ['Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur iure similique, facere \
+in id laboriosam rem voluptas ducimus alias inventore earum explicabo consequuntur praesentium maxime ad aspernatur hic, eius veniam?',
+'Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur iure similique, facere \
+in id laboriosam rem voluptas ducimus alias inventore earum explicabo consequuntur praesentium maxime ad aspernatur hic, eius veniam?', 
+'Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur iure similique, facere \
+in id laboriosam rem voluptas ducimus alias inventore earum explicabo consequuntur praesentium maxime ad aspernatur hic, eius veniam?', 
+'Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur iure similique, facere \
+in id laboriosam rem voluptas ducimus alias inventore earum explicabo consequuntur praesentium maxime ad aspernatur hic, eius veniam?',
+'Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur iure similique, facere \
+in id laboriosam rem voluptas ducimus alias inventore earum explicabo consequuntur praesentium maxime ad aspernatur hic, eius veniam?']
+
 const ScrollableList: React.FC<IPropsScrollableList> = (props) => {
   const [height, setHeight] = useState<number>(0)
   const contentRef = useRef<HTMLDivElement>(null)
@@ -16,7 +27,6 @@ const ScrollableList: React.FC<IPropsScrollableList> = (props) => {
   useEffect(() => {
     const height = contentRef.current?.clientHeight
     height && setHeight(height)
-    console.log('[debug] height: ', height)
   }, [])
 
   return (
@@ -24,46 +34,25 @@ const ScrollableList: React.FC<IPropsScrollableList> = (props) => {
       <ScrollableListContainer>
         <ScrollableListTop>
           <ScrollableListContent>
-            <div ref={contentRef}>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Consectetur iure similique, facere in id laboriosam rem voluptas
-                ducimus alias inventore earum explicabo consequuntur praesentium
-                maxime ad aspernatur hic, eius veniam?
-              </p>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Consectetur iure similique, facere in id laboriosam rem voluptas
-                ducimus alias inventore earum explicabo consequuntur praesentium
-                maxime ad aspernatur hic, eius veniam?
-              </p>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Consectetur iure similique, facere in id laboriosam rem voluptas
-                ducimus alias inventore earum explicabo consequuntur praesentium
-                maxime ad aspernatur hic, eius veniam?
-              </p>
-            </div>
+              {
+                mockData.map(v => <p>{v}</p>)
+              }
           </ScrollableListContent>
         </ScrollableListTop>
         <ScrollableListCenter>
           <ScrollableListContent>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur
-              iure similique, facere in id laboriosam rem voluptas ducimus alias
-              inventore earum explicabo consequuntur praesentium maxime ad
-              aspernatur hic, eius veniam?
-            </p>
+            <div ref={contentRef}>
+              {
+                mockData.map(v => <p>{v}</p>)
+              }
+            </div>
           </ScrollableListContent>
         </ScrollableListCenter>
         <ScrollableListBottom>
           <ScrollableListContent>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Consectetur iure similique, facere in id laboriosam rem voluptas
-              ducimus alias inventore earum explicabo consequuntur praesentium
-              maxime ad aspernatur hic, eius veniam?
-            </p>
+              {
+                mockData.map(v => <p>{v}</p>)
+              }
           </ScrollableListContent>
         </ScrollableListBottom>
       </ScrollableListContainer>
