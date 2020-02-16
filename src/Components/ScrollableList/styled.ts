@@ -18,7 +18,6 @@ const ScrollableListContainer = styled.div`
   max-width: 900px;
   position: fixed;
   top: 0;
-  text-align: justify;
 `
 
 const ScrollableListTop = styled.div`
@@ -46,9 +45,9 @@ const ScrollableListBottom = styled.div`
 `
 
 const ScrollableListContent = styled.div<IPropsScrollableListContent>`
-  font-size: 4rem;
+  font-size: 8vh;
   line-height: 1.5;
-  transform: ${(props: IPropsScrollableListContent) => `translateY(${props.posY}px)`}
+  transform: ${(props: IPropsScrollableListContent) => `translateY(${props.posY}px)`};
 `
 
 export {
