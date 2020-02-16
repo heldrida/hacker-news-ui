@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef, useCallback } from 'react'
 import {
   ScrollWrapper,
   ScrollableListContainer,
@@ -46,24 +46,31 @@ const ScrollableList: React.FC<IPropsScrollableList> = (props) => {
     height && setHeight(height)
   }, [])
 
-  useEffect(() => {
-    document.addEventListener('scroll', () => {
-      const scrollY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop
-      const offsetTop = height * 0.398
-      const offsetBottom = height * 0.3
-      setScrollPosition({
-        top: {
-          y: -(scrollY)
-        },
-        center: {
-          y: -scrollY
-        },
-        bottom: {
-          y: -(scrollY)
-        },
-      })
+  const scrollToHandler = useCallback(() => {
+    const scrollY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop
+    const offsetTop = window.innerHeight * 0.398
+    const offsetBottom = window.innerHeight * 0.3
+
+    setScrollPosition({
+      top: {
+        y: -(scrollY-offsetTop)
+      },
+      center: {
+        y: -scrollY
+      },
+      bottom: {
+        y: -(scrollY+offsetBottom)
+      },
     })
-  }, [height])
+  }, [])
+
+  useEffect(() => {
+    document.addEventListener('scroll', scrollToHandler)
+
+    return () => {
+      window.removeEventListener('scroll', scrollToHandler)
+    }
+  }, [scrollToHandler])
 
   return (
     <ScrollWrapper height={height}>
