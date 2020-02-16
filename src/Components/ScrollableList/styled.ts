@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { IPropsScrollWrapper, IPropsScrollableList } from '../../Types'
+import { IPropsScrollWrapper, IPropsScrollableListContent } from '../../Types'
 
 const ScrollWrapper = styled.div<IPropsScrollWrapper>`
   position: relative;
@@ -45,14 +45,10 @@ const ScrollableListBottom = styled.div`
   overflow: hidden;
 `
 
-interface ScrollableListContent {
-  posY?: number
-}
-
-const ScrollableListContent = styled.div<ScrollableListContent>`
+const ScrollableListContent = styled.div<IPropsScrollableListContent>`
   font-size: 4rem;
   line-height: 1.5;
-  transform: ${(props: ScrollableListContent) => `translateY(${props.posY}px)`}
+  transform: ${(props: IPropsScrollableListContent) => `translateY(${props.posY}px)`}
 `
 
 export {
