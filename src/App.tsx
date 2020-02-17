@@ -1,9 +1,8 @@
 import React from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-import ScrollableList from './Components/ScrollableList'
 import { ThemeProvider } from 'styled-components'
 import { themeConf, DefaultStyles } from './styled'
-import ScrollDownTip from './Components/ScrollDownTip'
+import Home from './Container/Home'
 
 const App = () => {
   return (
@@ -12,8 +11,7 @@ const App = () => {
       <Router>
         <Switch>
           <Route exact path="/">
-            <ScrollDownTip />
-            <ScrollableList />
+            <Home />
           </Route>
         </Switch>
       </Router>
