@@ -20,13 +20,18 @@ interface IPropsScrollPosition {
   }
 }
 
-interface IPropsScrollableListContainer {
-  rotateX: number,
-  rotateY: number
-}
-
 interface IPropsScrollableListContent {
   posY?: number
+}
+
+interface INewStories {
+  id: string,
+  by: {
+    id: string
+    __typename: string
+  },
+  title: string
+  __typename: string
 }
 
 export {
@@ -36,5 +41,5 @@ export {
   IPropsScrollWrapper,
   IPropsScrollPosition,
   IPropsScrollableListContent,
-  IPropsScrollableListContainer
+  INewStories
 }

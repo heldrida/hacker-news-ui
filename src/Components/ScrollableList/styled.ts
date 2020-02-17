@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { IPropsScrollWrapper, IPropsScrollableListContent, IPropsScrollableListContainer } from '../../Types'
+import { IPropsScrollWrapper, IPropsScrollableListContent } from '../../Types'
 
 const ScrollWrapper = styled.div<IPropsScrollWrapper>`
   position: relative;
@@ -9,7 +9,7 @@ const ScrollWrapper = styled.div<IPropsScrollWrapper>`
   justify-content: center;
 `
 
-const ScrollableListContainer = styled.div<IPropsScrollableListContainer>`
+const ScrollableListContainer = styled.div`
   font-size: 6vh;
   line-height: 1.5;
   position: relative;
@@ -18,8 +18,6 @@ const ScrollableListContainer = styled.div<IPropsScrollableListContainer>`
   max-width: 900px;
   position: fixed;
   top: 0;
-  transform: ${(props: IPropsScrollableListContainer) => `rotateX(${props.rotateX}deg)`},
-             ${(props: IPropsScrollableListContainer) => `rotateY(${props.rotateY}deg)`};
 `
 
 const ScrollableListTop = styled.div`

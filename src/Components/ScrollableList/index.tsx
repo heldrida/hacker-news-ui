@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react'
+import { useQuery } from '@apollo/react-hooks'
+import { queryNewStories } from '../../Utils/queries'
 import {
   ScrollWrapper,
   ScrollableListContainer,
@@ -7,7 +9,7 @@ import {
   ScrollableListBottom,
   ScrollableListContent
 } from './styled'
-import { IPropsScrollableList, IPropsScrollPosition } from '../../Types'
+import { IPropsScrollableList, IPropsScrollPosition, INewStories } from '../../Types'
 import { getOffsetValue } from '../../Utils/helpers'
 import { SCROLL_CONTAINER_TOP, SCROLL_CONTAINER_BOTTOM } from '../../Utils/constants'
 import Logo from '../../Icons/Logo'
@@ -39,8 +41,8 @@ const ScrollableList: React.FC<IPropsScrollableList> = (props) => {
   const [scrollPosition, setScrollPosition] = useState<IPropsScrollPosition>(initialState)
   const [isVisible, setIsVisible] = useState<boolean>(false)
   const contentRef = useRef<HTMLDivElement>(null)
-  const [rotateX, setRotateX] = useState<number>(0)
-  const [rotateY, setRotateY] = useState<number>(0)
+  const { data: queryNewsStoriesResponseData } = useQuery(queryNewStories)
+  const [newStories, setNewStories] = useState<INewStories[] | undefined>()
 
   const scrollToHandler = useCallback(() => {
     const scrollY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop
@@ -60,17 +62,6 @@ const ScrollableList: React.FC<IPropsScrollableList> = (props) => {
     })
   }, [])
 
-  const mouseMoveHandler = useCallback((e: MouseEvent) => {
-    const DEG = 180
-    const { clientX, clientY } = e
-    const { innerWidth, innerHeight } = window
-    const percX = innerWidth && (clientX/innerWidth)
-    const percY = innerHeight && (clientY/innerHeight)
-
-    setRotateX(percX * DEG)
-    setRotateY(percY * DEG)
-  }, [])
-
   useEffect(() => {
     setIsVisible(true)
   }, [setIsVisible])
@@ -79,7 +70,7 @@ const ScrollableList: React.FC<IPropsScrollableList> = (props) => {
     const height = contentRef.current?.clientHeight
     height &&
     setHeight(height * 1.2) // extra height to compensate scroll to main middle content
-  }, [isVisible])
+  }, [isVisible, newStories])
 
   useEffect(() => {
     scrollToHandler()
@@ -93,20 +84,20 @@ const ScrollableList: React.FC<IPropsScrollableList> = (props) => {
   }, [isVisible, scrollToHandler])
 
   useEffect(() => {
-    document.addEventListener('mousemove', mouseMoveHandler)
-    return () => {
-      window.removeEventListener('mousemove', mouseMoveHandler)
-    }
-  }, [isVisible, mouseMoveHandler])
+    if (!queryNewsStoriesResponseData) return
+    const { newStories } = queryNewsStoriesResponseData.hn
+    newStories && setNewStories(newStories)
+  }, [queryNewsStoriesResponseData])
 
   return (isVisible && (
       <ScrollWrapper height={height}>
-        <ScrollableListContainer rotateX={rotateX} rotateY={rotateY}>
+        <ScrollableListContainer>
           <ScrollableListTop>
             <ScrollableListContent posY={scrollPosition.top.y}>
                 <Logo />
                 {
-                  mockData.map((v, k) => <p key={k}>{v}</p>)
+                  newStories &&
+                  newStories.map((v, k) => <p key={k}>{v.title}</p>)
                 }
             </ScrollableListContent>
           </ScrollableListTop>
@@ -115,7 +106,8 @@ const ScrollableList: React.FC<IPropsScrollableList> = (props) => {
               <div ref={contentRef}>
                 <Logo/>
                 {
-                  mockData.map((v, k) => <p key={k}>{v}</p>)
+                  newStories &&
+                  newStories.map((v, k) => <p key={k}>{v.title}</p>)
                 }
               </div>
             </ScrollableListContent>
@@ -124,7 +116,8 @@ const ScrollableList: React.FC<IPropsScrollableList> = (props) => {
             <ScrollableListContent posY={scrollPosition.bottom.y}>
                 <Logo/>
                 {
-                  mockData.map((v, k) => <p key={k}>{v}</p>)
+                  newStories &&
+                  newStories.map((v, k) => <p key={k}>{v.title}</p>)
                 }
             </ScrollableListContent>
           </ScrollableListBottom>
