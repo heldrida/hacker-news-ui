@@ -14,6 +14,7 @@ const About = (): JSX.Element => {
         <Cross />
       </Link>
       <AboutContent>
+        <h1>Welcome</h1>
         <p>The project was developed and is maintained by <a href="https://www.punkbit.com" target="_blank">Punkbit!</a></p>
         <p>Developed as an experimental concept for a Hacker News reader application that consumes data from
         a GraphQl API Wrapper "for the not so great" HN Rest API - the GraphQl endpoint is not 100% production ready, so occasional issues may

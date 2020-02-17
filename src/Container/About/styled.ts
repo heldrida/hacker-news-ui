@@ -10,6 +10,11 @@ const AboutContainer = styled.div<IPropsTheme>`
   height: 100vh;
   padding: 5vh;
 
+  & h1 {
+    font-size: 5.2vh;
+    padding-bottom: 3vh;
+  }
+
   & a {
     color: white;
     text-decoration: underline;

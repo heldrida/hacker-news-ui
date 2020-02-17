@@ -49,6 +49,7 @@ const ScrollableListContent = styled.div<IPropsScrollableListContent>`
 
 const ScrollableLogoContainer = styled.div`
   text-align: center;
+  padding-bottom: 25vh;
   & > svg {
     width: 86vh;
   }
