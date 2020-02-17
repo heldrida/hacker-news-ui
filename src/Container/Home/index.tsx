@@ -2,7 +2,6 @@ import React, { useEffect, useCallback, useState } from 'react'
 import ScrollDownTip from '../../Components/ScrollDownTip'
 import ScrollableList from '../../Components/ScrollableList'
 import Logo from '../../Icons/Logo'
-import styled from 'styled-components'
 import { BlackLogoContainer } from './styled'
 
 const Home = () => { 
