@@ -36,11 +36,12 @@ const ScrollableList: React.FC<IPropsScrollableList> = (props) => {
   const { loading, error, data: queryNewsStoriesResponseData } = useQuery(queryNewStories)
   const [newStories, setNewStories] = useState<INewStories[] | undefined>()
 
+  if (error) return `Oops! ${error}`
+
   const scrollToHandler = useCallback(() => {
     const scrollY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop
     const offsetTop = getOffsetValue(SCROLL_CONTAINER_TOP)
     const offsetBottom = getOffsetValue(SCROLL_CONTAINER_BOTTOM)
-
     setScrollPosition({
       top: {
         y: -(scrollY-offsetTop)
