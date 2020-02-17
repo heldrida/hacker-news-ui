@@ -3,6 +3,7 @@ import ScrollDownTip from '../../Components/ScrollDownTip'
 import ScrollableList from '../../Components/ScrollableList'
 import Logo from '../../Icons/Logo'
 import { BlackLogoContainer } from './styled'
+import { Link } from 'react-router-dom'
 
 const Home = () => { 
   const [hideScrollTip, setHideScrollTip] = useState<boolean>(false)
@@ -22,9 +23,11 @@ const Home = () => {
     <>
       <ScrollDownTip hide={hideScrollTip} />
       <ScrollableList />
-      <BlackLogoContainer hide={!hideScrollTip}>
-        <Logo black={true} />
-      </BlackLogoContainer>
+      <Link to={'/about'}>
+        <BlackLogoContainer hide={!hideScrollTip}>
+          <Logo black={true} />
+        </BlackLogoContainer>
+      </Link>
     </>
   )
 }

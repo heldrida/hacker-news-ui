@@ -9,6 +9,17 @@ const themeConf: TThemeConf = {
 const DefaultStyles = createGlobalStyle`
   * {
     text-decoration: none;
+        margin: 0;
+        padding: 0;
+        border: 0;
+        outline: 0;
+        font-size: 100%;
+        vertical-align: baseline;
+        background: transparent;
+    }
+  body, html {
+    width: 100%;
+    height: 100%;
   }
   body {
     padding: 0;
