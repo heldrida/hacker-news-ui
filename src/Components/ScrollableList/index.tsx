@@ -18,6 +18,7 @@ import Story from '../../Components/Story'
 import Loading from '../Loading'
 import Error from '../Error'
 import CtaButton from '../CtaButton'
+import appConfig from '../../config'
 
 const ScrollableList: React.FC<IPropsScrollableList> = (props) => {
   const initialState = {
@@ -37,7 +38,7 @@ const ScrollableList: React.FC<IPropsScrollableList> = (props) => {
   const contentRef = useRef<HTMLDivElement>(null)
   const { loading, error, data, fetchMore } = useQuery(queryNewStories, {
     variables: {
-      limit: 32,
+      limit: appConfig.application.initialNumberOfStories,
       offset: 0
     }
   })

@@ -11,7 +11,8 @@ const themeColors = {
 
 export default {
   application: {
-    name: "nsPunkbitHackerNewsReader"
+    name: "nsPunkbitHackerNewsReader",
+    initialNumberOfStories: 30
   },
   // Obs: If you are not running the API through the Docker container documented
   // in the README.md, use the alternative proxy's provided
