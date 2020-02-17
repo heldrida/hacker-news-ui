@@ -15,7 +15,7 @@ const About = (): JSX.Element => {
       </Link>
       <AboutContent>
         <h1>Welcome</h1>
-        <p>The project was developed and is maintained by <a href="https://www.punkbit.com" target="_blank">Punkbit!</a></p>
+        <p>The project was developed and is maintained by <a href="https://www.punkbit.com" target="_blank" rel="noopener noreferrer">Punkbit!</a></p>
         <p>Developed as an experimental concept for a Hacker News reader application that consumes data from
         a GraphQl API Wrapper "for the not so great" HN Rest API - the GraphQl endpoint is not 100% production ready, so occasional issues may
         occur, that relate to the base Rest endpoints. If down, please try again after a few minutes!</p>
