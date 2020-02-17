@@ -16,6 +16,7 @@ import { SCROLL_CONTAINER_TOP, SCROLL_CONTAINER_BOTTOM } from '../../Utils/const
 import Logo from '../../Icons/Logo'
 import Story from '../../Components/Story'
 import Loading from '../Loading'
+import Error from '../Error'
 
 const ScrollableList: React.FC<IPropsScrollableList> = (props) => {
   const initialState = {
@@ -35,8 +36,6 @@ const ScrollableList: React.FC<IPropsScrollableList> = (props) => {
   const contentRef = useRef<HTMLDivElement>(null)
   const { loading, error, data: queryNewsStoriesResponseData } = useQuery(queryNewStories)
   const [newStories, setNewStories] = useState<INewStories[] | undefined>()
-
-  if (error) return `Oops! ${error}`
 
   const scrollToHandler = useCallback(() => {
     const scrollY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop
@@ -81,6 +80,8 @@ const ScrollableList: React.FC<IPropsScrollableList> = (props) => {
     const { newStories } = queryNewsStoriesResponseData.hn
     newStories && setNewStories(newStories)
   }, [queryNewsStoriesResponseData])
+
+  if (error) return <Error error={error} />
 
   return (isVisible && !loading && (
       <ScrollWrapper height={height}>
