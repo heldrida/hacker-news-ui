@@ -7,7 +7,7 @@ import { BlackLogoContainer } from './styled'
 const Home = () => { 
   const [hideScrollTip, setHideScrollTip] = useState<boolean>(false)
   const scrollToHandler = useCallback(() => {
-    const hide = window.scrollY > 600
+    const hide = window.scrollY > (window.screen.availHeight * 1.1)
     setHideScrollTip(hide)
   }, [])
 
