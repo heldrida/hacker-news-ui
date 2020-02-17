@@ -1,5 +1,6 @@
 const themeColors = {
   default: {
+    orange: '#ff6600', // #ffa600
     vividTangelo: '#F26722',
     platinum: '#E8E9EB',
     gainsBoro: '#E0DFD5',

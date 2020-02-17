@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { IPropsTheme } from '../../Types'
 
 interface IStoryContainer {
   onClick: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void
@@ -12,7 +13,7 @@ const StoryContainer = styled.div<IStoryContainer>`
   transition: background 0.3s;
 
   &:hover {
-    background: orange;
+    background: ${(props: IPropsTheme) => props.theme.orange};
   }
 
   & > svg {
