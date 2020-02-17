@@ -60,7 +60,7 @@ const ScrollableList: React.FC<IPropsScrollableList> = (props) => {
   useEffect(() => {
     const height = contentRef.current?.clientHeight
     height &&
-    setHeight(height * 1.2) // extra height to compensate scroll to main middle content
+    setHeight(height * 1.05) // extra height to compensate scroll to main middle content
   }, [isVisible, newStories])
 
   useEffect(() => {
@@ -90,7 +90,7 @@ const ScrollableList: React.FC<IPropsScrollableList> = (props) => {
                 </ScrollableLogoContainer>
                 {
                   newStories &&
-                  newStories.map((v, k) => <Story key={k} title={v.title} url={v.url}/>)
+                  newStories.map((v, k) => v.url && <Story key={k} title={v.title} url={v.url} by={v.by.id} />)
                 }
             </ScrollableListContent>
           </ScrollableListTop>
@@ -102,7 +102,7 @@ const ScrollableList: React.FC<IPropsScrollableList> = (props) => {
                 </ScrollableLogoContainer>
                 {
                   newStories &&
-                  newStories.map((v, k) => <Story key={k} title={v.title} url={v.url}/>)
+                  newStories.map((v, k) => v.url && <Story key={k} title={v.title} url={v.url} by={v.by.id} />)
                 }
               </div>
             </ScrollableListContent>
@@ -114,7 +114,7 @@ const ScrollableList: React.FC<IPropsScrollableList> = (props) => {
                 </ScrollableLogoContainer>
                 {
                   newStories &&
-                  newStories.map((v, k) => <Story key={k} title={v.title} url={v.url}/>)
+                  newStories.map((v, k) => v.url && <Story key={k} title={v.title} url={v.url} by={v.by.id} />)
                 }
             </ScrollableListContent>
           </ScrollableListBottom>
