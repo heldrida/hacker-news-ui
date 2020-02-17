@@ -89,7 +89,7 @@ const ScrollableList: React.FC<IPropsScrollableList> = (props) => {
   useEffect(() => {
     const height = contentRef.current?.clientHeight
     height &&
-    setHeight(height * 1.1) // extra height to compensate scroll to main middle content
+    setHeight(height * 1.15) // extra height to compensate scroll to main middle content
   }, [isVisible, data])
 
   useEffect(() => {
