@@ -7,7 +7,8 @@ import {
   ScrollableListTop,
   ScrollableListCenter,
   ScrollableListBottom,
-  ScrollableListContent
+  ScrollableListContent,
+  ScrollableLogoContainer
 } from './styled'
 import { IPropsScrollableList, IPropsScrollPosition, INewStories } from '../../Types'
 import { getOffsetValue } from '../../Utils/helpers'
@@ -84,7 +85,9 @@ const ScrollableList: React.FC<IPropsScrollableList> = (props) => {
         <ScrollableListContainer>
           <ScrollableListTop>
             <ScrollableListContent posY={scrollPosition.top.y}>
-                <Logo />
+                <ScrollableLogoContainer>
+                  <Logo />
+                </ScrollableLogoContainer>
                 {
                   newStories &&
                   newStories.map((v, k) => <Story key={k} title={v.title} url={v.url}/>)
@@ -94,7 +97,9 @@ const ScrollableList: React.FC<IPropsScrollableList> = (props) => {
           <ScrollableListCenter>
             <ScrollableListContent posY={scrollPosition.center.y}>
               <div ref={contentRef}>
-                <Logo/>
+                <ScrollableLogoContainer>
+                  <Logo />
+                </ScrollableLogoContainer>
                 {
                   newStories &&
                   newStories.map((v, k) => <Story key={k} title={v.title} url={v.url}/>)
@@ -104,7 +109,9 @@ const ScrollableList: React.FC<IPropsScrollableList> = (props) => {
           </ScrollableListCenter>
           <ScrollableListBottom>
             <ScrollableListContent posY={scrollPosition.bottom.y}>
-                <Logo/>
+                <ScrollableLogoContainer>
+                  <Logo />
+                </ScrollableLogoContainer>
                 {
                   newStories &&
                   newStories.map((v, k) => <Story key={k} title={v.title} url={v.url}/>)

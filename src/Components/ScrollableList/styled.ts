@@ -47,11 +47,19 @@ const ScrollableListContent = styled.div<IPropsScrollableListContent>`
   transform: ${(props: IPropsScrollableListContent) => `translateY(${props.posY}px)`};
 `
 
+const ScrollableLogoContainer = styled.div`
+  text-align: center;
+  & > svg {
+    width: 86vh;
+  }
+`
+
 export {
   ScrollWrapper,
   ScrollableListContainer,
   ScrollableListTop,
   ScrollableListCenter,
   ScrollableListBottom,
-  ScrollableListContent
+  ScrollableListContent,
+  ScrollableLogoContainer
 }
