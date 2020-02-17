@@ -13,17 +13,7 @@ import { IPropsScrollableList, IPropsScrollPosition, INewStories } from '../../T
 import { getOffsetValue } from '../../Utils/helpers'
 import { SCROLL_CONTAINER_TOP, SCROLL_CONTAINER_BOTTOM } from '../../Utils/constants'
 import Logo from '../../Icons/Logo'
-
-const mockData = ['Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur iure similique, facere \
-in id laboriosam rem voluptas ducimus alias inventore earum explicabo consequuntur praesentium maxime ad aspernatur hic, eius veniam?',
-'Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur iure similique, facere \
-in id laboriosam rem voluptas ducimus alias inventore earum explicabo consequuntur praesentium maxime ad aspernatur hic, eius veniam?', 
-'Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur iure similique, facere \
-in id laboriosam rem voluptas ducimus alias inventore earum explicabo consequuntur praesentium maxime ad aspernatur hic, eius veniam?', 
-'Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur iure similique, facere \
-in id laboriosam rem voluptas ducimus alias inventore earum explicabo consequuntur praesentium maxime ad aspernatur hic, eius veniam?',
-'Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur iure similique, facere \
-in id laboriosam rem voluptas ducimus alias inventore earum explicabo consequuntur praesentium maxime ad aspernatur hic, eius veniam?']
+import Story from '../../Components/Story'
 
 const ScrollableList: React.FC<IPropsScrollableList> = (props) => {
   const initialState = {
@@ -97,7 +87,7 @@ const ScrollableList: React.FC<IPropsScrollableList> = (props) => {
                 <Logo />
                 {
                   newStories &&
-                  newStories.map((v, k) => <p key={k}>{v.title}</p>)
+                  newStories.map((v, k) => <Story key={k} title={v.title} url={v.url}/>)
                 }
             </ScrollableListContent>
           </ScrollableListTop>
@@ -107,7 +97,7 @@ const ScrollableList: React.FC<IPropsScrollableList> = (props) => {
                 <Logo/>
                 {
                   newStories &&
-                  newStories.map((v, k) => <p key={k}>{v.title}</p>)
+                  newStories.map((v, k) => <Story key={k} title={v.title} url={v.url}/>)
                 }
               </div>
             </ScrollableListContent>
@@ -117,7 +107,7 @@ const ScrollableList: React.FC<IPropsScrollableList> = (props) => {
                 <Logo/>
                 {
                   newStories &&
-                  newStories.map((v, k) => <p key={k}>{v.title}</p>)
+                  newStories.map((v, k) => <Story key={k} title={v.title} url={v.url}/>)
                 }
             </ScrollableListContent>
           </ScrollableListBottom>

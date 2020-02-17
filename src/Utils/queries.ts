@@ -7,6 +7,9 @@ const queryNewStories: DocumentNode = gql`
       newStories(limit: 32, offset: 0) {
         id
         title
+        url
+        time
+        score
         by {
           id
         }

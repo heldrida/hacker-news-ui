@@ -30,7 +30,10 @@ interface INewStories {
     id: string
     __typename: string
   },
-  title: string
+  title: string,
+  url: string,
+  time: number,
+  score: number,
   __typename: string
 }
 
