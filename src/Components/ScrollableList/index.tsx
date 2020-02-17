@@ -15,6 +15,7 @@ import { getOffsetValue } from '../../Utils/helpers'
 import { SCROLL_CONTAINER_TOP, SCROLL_CONTAINER_BOTTOM } from '../../Utils/constants'
 import Logo from '../../Icons/Logo'
 import Story from '../../Components/Story'
+import Loading from '../Loading'
 
 const ScrollableList: React.FC<IPropsScrollableList> = (props) => {
   const initialState = {
@@ -32,7 +33,7 @@ const ScrollableList: React.FC<IPropsScrollableList> = (props) => {
   const [scrollPosition, setScrollPosition] = useState<IPropsScrollPosition>(initialState)
   const [isVisible, setIsVisible] = useState<boolean>(false)
   const contentRef = useRef<HTMLDivElement>(null)
-  const { data: queryNewsStoriesResponseData } = useQuery(queryNewStories)
+  const { loading, error, data: queryNewsStoriesResponseData } = useQuery(queryNewStories)
   const [newStories, setNewStories] = useState<INewStories[] | undefined>()
 
   const scrollToHandler = useCallback(() => {
@@ -80,7 +81,7 @@ const ScrollableList: React.FC<IPropsScrollableList> = (props) => {
     newStories && setNewStories(newStories)
   }, [queryNewsStoriesResponseData])
 
-  return (isVisible && (
+  return (isVisible && !loading && (
       <ScrollWrapper height={height}>
         <ScrollableListContainer>
           <ScrollableListTop>
@@ -120,7 +121,7 @@ const ScrollableList: React.FC<IPropsScrollableList> = (props) => {
           </ScrollableListBottom>
         </ScrollableListContainer>
       </ScrollWrapper>)) ||
-      <p>[TODO] Loading component...</p>
+      <Loading />
 }
 
 export default ScrollableList
