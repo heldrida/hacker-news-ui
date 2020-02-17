@@ -37,6 +37,10 @@ interface INewStories {
   __typename: string
 }
 
+interface IPropsScroll {
+  hide: boolean
+}
+
 export {
   IPropsScrollableList,
   IPropsTheme,
@@ -44,5 +48,6 @@ export {
   IPropsScrollWrapper,
   IPropsScrollPosition,
   IPropsScrollableListContent,
-  INewStories
+  INewStories,
+  IPropsScroll
 }
