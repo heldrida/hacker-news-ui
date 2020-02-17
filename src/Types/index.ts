@@ -28,13 +28,19 @@ interface INewStories {
   id: string,
   by: {
     id: string
-    __typename: string
   },
   title: string,
   url: string,
   time: number,
   score: number,
   __typename: string
+}
+
+interface IUseQueryResponse {
+  hn: {
+    __typename: string,
+    newStories: INewStories[]
+  }
 }
 
 interface IPropsScroll {
@@ -49,5 +55,6 @@ export {
   IPropsScrollPosition,
   IPropsScrollableListContent,
   INewStories,
-  IPropsScroll
+  IPropsScroll,
+  IUseQueryResponse
 }

@@ -2,9 +2,9 @@ import { gql } from 'apollo-boost'
 import { DocumentNode } from 'apollo-boost'
 
 const queryNewStories: DocumentNode = gql`
-  query {
+  query($limit: Int, $offset: Int) {
     hn {
-      newStories(limit: 32, offset: 0) {
+      newStories(limit: $limit, offset: $offset) {
         id
         title
         url
@@ -12,7 +12,8 @@ const queryNewStories: DocumentNode = gql`
         score
         by {
           id
-        }
+        },
+        type
       }
     }
   }

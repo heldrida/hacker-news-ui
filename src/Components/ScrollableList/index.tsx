@@ -10,13 +10,14 @@ import {
   ScrollableListContent,
   ScrollableLogoContainer
 } from './styled'
-import { IPropsScrollableList, IPropsScrollPosition, INewStories } from '../../Types'
+import { IPropsScrollableList, IPropsScrollPosition, INewStories, IUseQueryResponse } from '../../Types'
 import { getOffsetValue } from '../../Utils/helpers'
 import { SCROLL_CONTAINER_TOP, SCROLL_CONTAINER_BOTTOM } from '../../Utils/constants'
 import Logo from '../../Icons/Logo'
 import Story from '../../Components/Story'
 import Loading from '../Loading'
 import Error from '../Error'
+import CtaButton from '../CtaButton'
 
 const ScrollableList: React.FC<IPropsScrollableList> = (props) => {
   const initialState = {
@@ -34,9 +35,17 @@ const ScrollableList: React.FC<IPropsScrollableList> = (props) => {
   const [scrollPosition, setScrollPosition] = useState<IPropsScrollPosition>(initialState)
   const [isVisible, setIsVisible] = useState<boolean>(false)
   const contentRef = useRef<HTMLDivElement>(null)
-  const { loading, error, data: queryNewsStoriesResponseData } = useQuery(queryNewStories)
-  const [newStories, setNewStories] = useState<INewStories[] | undefined>()
-
+  const { loading, error, data, fetchMore } = useQuery(queryNewStories, {
+    variables: {
+      limit: 32,
+      offset: 0
+    }
+  })
+  const newStories = data && data.hn?.newStories
+  // useEffect(() => {
+  //   console.log('[debug] queryNewsStoriesResponseData: ', queryNewsStoriesResponseData)
+  // }, [queryNewsStoriesResponseData])
+  // const [newStories, setNewStories] = useState<INewStories[] | undefined>()
   const scrollToHandler = useCallback(() => {
     const scrollY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop
     const offsetTop = getOffsetValue(SCROLL_CONTAINER_TOP)
@@ -54,6 +63,24 @@ const ScrollableList: React.FC<IPropsScrollableList> = (props) => {
     })
   }, [])
 
+  const loadMoreHandler = useCallback(() => {
+    fetchMore({
+      variables: {
+        offset: data.hn?.newStories?.length
+      },
+      updateQuery: (prev: IUseQueryResponse, { fetchMoreResult }) => {
+        if (!fetchMoreResult) return prev
+        const data = Object.assign({}, prev, {
+          hn: {
+            __typename: prev.hn.__typename,
+            newStories: [...prev.hn.newStories, ...fetchMoreResult.hn.newStories]
+          }
+        })
+        return data
+      }
+    })
+  }, [data, fetchMore])
+
   useEffect(() => {
     setIsVisible(true)
   }, [setIsVisible])
@@ -61,8 +88,8 @@ const ScrollableList: React.FC<IPropsScrollableList> = (props) => {
   useEffect(() => {
     const height = contentRef.current?.clientHeight
     height &&
-    setHeight(height * 1.05) // extra height to compensate scroll to main middle content
-  }, [isVisible, newStories])
+    setHeight(height * 1.1) // extra height to compensate scroll to main middle content
+  }, [isVisible, data])
 
   useEffect(() => {
     scrollToHandler()
@@ -75,11 +102,6 @@ const ScrollableList: React.FC<IPropsScrollableList> = (props) => {
     }
   }, [isVisible, scrollToHandler])
 
-  useEffect(() => {
-    if (!queryNewsStoriesResponseData) return
-    const { newStories } = queryNewsStoriesResponseData.hn
-    newStories && setNewStories(newStories)
-  }, [queryNewsStoriesResponseData])
 
   if (error) return <Error error={error} />
 
@@ -93,8 +115,9 @@ const ScrollableList: React.FC<IPropsScrollableList> = (props) => {
                 </ScrollableLogoContainer>
                 {
                   newStories &&
-                  newStories.map((v, k) => v.url && <Story key={k} title={v.title} url={v.url} by={v.by.id} />)
+                  newStories.map((v: INewStories, k: number) => v && v.url && <Story key={k} title={v.title} url={v.url} by={v.by.id} />)
                 }
+                <CtaButton onClick={loadMoreHandler}>{'Load more...'}</CtaButton>
             </ScrollableListContent>
           </ScrollableListTop>
           <ScrollableListCenter>
@@ -105,8 +128,9 @@ const ScrollableList: React.FC<IPropsScrollableList> = (props) => {
                 </ScrollableLogoContainer>
                 {
                   newStories &&
-                  newStories.map((v, k) => v.url && <Story key={k} title={v.title} url={v.url} by={v.by.id} />)
+                  newStories.map((v: INewStories, k: number) => v && v.url && <Story key={k} title={v.title} url={v.url} by={v.by.id} />)
                 }
+                <CtaButton onClick={loadMoreHandler}>{'Load more...'}</CtaButton>
               </div>
             </ScrollableListContent>
           </ScrollableListCenter>
@@ -117,11 +141,12 @@ const ScrollableList: React.FC<IPropsScrollableList> = (props) => {
                 </ScrollableLogoContainer>
                 {
                   newStories &&
-                  newStories.map((v, k) => v.url && <Story key={k} title={v.title} url={v.url} by={v.by.id} />)
+                  newStories.map((v: INewStories, k: number) => v && v.url && <Story key={k} title={v.title} url={v.url} by={v.by.id} />)
                 }
+                <CtaButton onClick={loadMoreHandler}>{'Load more...'}</CtaButton>
             </ScrollableListContent>
           </ScrollableListBottom>
-        </ScrollableListContainer>
+        </ScrollableListContainer>        
       </ScrollWrapper>)) ||
       <Loading />
 }
