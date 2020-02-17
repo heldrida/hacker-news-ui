@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { IPropsScrollWrapper, IPropsScrollableListContent } from '../../Types'
+import { IPropsScrollWrapper, IPropsScrollableListContent, IPropsScrollableListContainer } from '../../Types'
 
 const ScrollWrapper = styled.div<IPropsScrollWrapper>`
   position: relative;
@@ -9,7 +9,7 @@ const ScrollWrapper = styled.div<IPropsScrollWrapper>`
   justify-content: center;
 `
 
-const ScrollableListContainer = styled.div`
+const ScrollableListContainer = styled.div<IPropsScrollableListContainer>`
   font-size: 6vh;
   line-height: 1.5;
   position: relative;
@@ -18,11 +18,12 @@ const ScrollableListContainer = styled.div`
   max-width: 900px;
   position: fixed;
   top: 0;
+  transform: ${(props: IPropsScrollableListContainer) => `rotateX(${props.rotateX}deg)`},
+             ${(props: IPropsScrollableListContainer) => `rotateY(${props.rotateY}deg)`};
 `
 
 const ScrollableListTop = styled.div`
   height: 40vh;
-  background: peachpuff;
   transform-origin: bottom center;
   transform: rotateX(-70deg);
   overflow: hidden;
@@ -30,7 +31,6 @@ const ScrollableListTop = styled.div`
 
 const ScrollableListCenter = styled.div`
   padding: 0;
-  background: pink;
   margin: 0;
   height: 30vh;
   overflow: hidden;
@@ -38,7 +38,6 @@ const ScrollableListCenter = styled.div`
 
 const ScrollableListBottom = styled.div`
   height: 80vh;
-  background: #ffcc00;
   transform-origin: top center;
   transform: rotateX(-50deg);
   overflow: hidden;

@@ -15,14 +15,19 @@ const DefaultStyles = createGlobalStyle`
     margin: 0;
     line-height: 1.4;
     background: white;
+    font-family: 'Bitter', serif;
   }
   ol, ul {
     list-style: none;
     margin: 0;
     padding: 0;
   }
+  h1, h2, h3, h4, h5 {
+    font-family: 'Work Sans', sans-serif;
+    font-weight: bold;
+  }
   p, li, div, a {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Bitter', serif;
   }
   *:focus {
     outline: none;

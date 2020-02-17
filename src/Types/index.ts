@@ -20,6 +20,11 @@ interface IPropsScrollPosition {
   }
 }
 
+interface IPropsScrollableListContainer {
+  rotateX: number,
+  rotateY: number
+}
+
 interface IPropsScrollableListContent {
   posY?: number
 }
@@ -30,5 +35,6 @@ export {
   TThemeConf,
   IPropsScrollWrapper,
   IPropsScrollPosition,
-  IPropsScrollableListContent
+  IPropsScrollableListContent,
+  IPropsScrollableListContainer
 }

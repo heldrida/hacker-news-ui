@@ -10,6 +10,7 @@ import {
 import { IPropsScrollableList, IPropsScrollPosition } from '../../Types'
 import { getOffsetValue } from '../../Utils/helpers'
 import { SCROLL_CONTAINER_TOP, SCROLL_CONTAINER_BOTTOM } from '../../Utils/constants'
+import Logo from '../../Icons/Logo'
 
 const mockData = ['Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur iure similique, facere \
 in id laboriosam rem voluptas ducimus alias inventore earum explicabo consequuntur praesentium maxime ad aspernatur hic, eius veniam?',
@@ -38,6 +39,8 @@ const ScrollableList: React.FC<IPropsScrollableList> = (props) => {
   const [scrollPosition, setScrollPosition] = useState<IPropsScrollPosition>(initialState)
   const [isVisible, setIsVisible] = useState<boolean>(false)
   const contentRef = useRef<HTMLDivElement>(null)
+  const [rotateX, setRotateX] = useState<number>(0)
+  const [rotateY, setRotateY] = useState<number>(0)
 
   const scrollToHandler = useCallback(() => {
     const scrollY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop
@@ -55,6 +58,17 @@ const ScrollableList: React.FC<IPropsScrollableList> = (props) => {
         y: -(scrollY+offsetBottom)
       },
     })
+  }, [])
+
+  const mouseMoveHandler = useCallback((e: MouseEvent) => {
+    const DEG = 180
+    const { clientX, clientY } = e
+    const { innerWidth, innerHeight } = window
+    const percX = innerWidth && (clientX/innerWidth)
+    const percY = innerHeight && (clientY/innerHeight)
+
+    setRotateX(percX * DEG)
+    setRotateY(percY * DEG)
   }, [])
 
   useEffect(() => {
@@ -78,29 +92,39 @@ const ScrollableList: React.FC<IPropsScrollableList> = (props) => {
     }
   }, [isVisible, scrollToHandler])
 
+  useEffect(() => {
+    document.addEventListener('mousemove', mouseMoveHandler)
+    return () => {
+      window.removeEventListener('mousemove', mouseMoveHandler)
+    }
+  }, [isVisible, mouseMoveHandler])
+
   return (isVisible && (
       <ScrollWrapper height={height}>
-        <ScrollableListContainer>
+        <ScrollableListContainer rotateX={rotateX} rotateY={rotateY}>
           <ScrollableListTop>
             <ScrollableListContent posY={scrollPosition.top.y}>
+                <Logo />
                 {
-                  mockData.map(v => <p>{v}</p>)
+                  mockData.map((v, k) => <p key={k}>{v}</p>)
                 }
             </ScrollableListContent>
           </ScrollableListTop>
           <ScrollableListCenter>
             <ScrollableListContent posY={scrollPosition.center.y}>
               <div ref={contentRef}>
+                <Logo/>
                 {
-                  mockData.map(v => <p>{v}</p>)
+                  mockData.map((v, k) => <p key={k}>{v}</p>)
                 }
               </div>
             </ScrollableListContent>
           </ScrollableListCenter>
           <ScrollableListBottom>
             <ScrollableListContent posY={scrollPosition.bottom.y}>
+                <Logo/>
                 {
-                  mockData.map(v => <p>{v}</p>)
+                  mockData.map((v, k) => <p key={k}>{v}</p>)
                 }
             </ScrollableListContent>
           </ScrollableListBottom>
