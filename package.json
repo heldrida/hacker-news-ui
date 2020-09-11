@@ -39,7 +39,7 @@
     "fs-extra": "^8.1.0",
     "html-webpack-plugin": "4.0.0-beta.11",
     "http": "^0.0.0",
-    "http-proxy": "^1.18.0",
+    "http-proxy": "^1.18.1",
     "http-proxy-middleware": "^0.20.0",
     "identity-obj-proxy": "3.0.0",
     "jest": "24.9.0",
